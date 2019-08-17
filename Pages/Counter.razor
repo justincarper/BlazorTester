@@ -1,0 +1,23 @@
+﻿@page "/counter"
+
+<h1>Counter</h1>
+
+<p>Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+<p>
+    <textarea class="form-control rounded-0" rows="3">@text1</textarea>
+</p>
+
+@code {
+    int currentCount = 0;
+    string text1 = "";
+
+    void IncrementCount()
+    {
+        currentCount++;
+        text1 = string.Format("The count is {0}.  Squared it's {1}.", currentCount, currentCount * currentCount);
+    }
+
+}
