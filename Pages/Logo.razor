@@ -1,38 +1,65 @@
 ﻿@page "/logo"
 @using System.Threading;
 
-<div>
-    <img src="https://uplandsoftware.com/wp-content/themes/upland/images/upland-logo.svg" />
+<div style="height:400px; width:400px; border: solid black 1px">
+    <img style="@img_style" src="https://uplandsoftware.com/wp-content/themes/upland/images/upland-logo.svg" />
 </div>
-<h1 style="@customStyle">
-    Sample Text
-</h1>
-<button class="btn btn-primary" @onclick="ToggleRed">Click me</button>
 
 
 @code {
-    private int Count { get; set; } = 10;
+    int left = 30;
+    bool left_direction = false;
+    int left_boundary = 400;
+    int top = 0;
+    bool top_direction = false;
+    int top_boundary = 400;
+    int speed = 5;
+    string img_style = "";
 
-    private string customStyle = "";
-
-    void ToggleRed()
+    string MakeStyle(int left, int top)
     {
-        customStyle = "color: red";
+        return string.Format("position: relative; left: {0}px; top: {0}px;", left, top);
     }
 
-
-    void StartCountdown()
+    protected override async Task OnInitializedAsync()
     {
         var timer = new Timer(new TimerCallback(_ =>
         {
-            if (Count > 0)
-            {
-                Count--;
+            if (left >= left_boundary | left <= 0) left_direction = !left_direction;
 
-            // Note that the following line is necessary because otherwise
-            // Blazor would not recognize the state change and not refresh the UI
-            this.StateHasChanged();
+            if (!left_direction)
+            {
+                //going right
+                left = left + speed;
             }
-        }), null, 1000, 1000);
+            else
+            {
+                //going left
+                left = left - speed;
+            }
+
+            if (top >= top_boundary | top <= 0) top_direction = !top_direction;
+
+            if (!top_direction)
+            {
+                //going down
+                top = top + speed + 2;
+            }
+            else
+            {
+                //going up
+                top = top - speed - 2;
+            }
+
+
+            img_style = MakeStyle(left, top);
+
+        // Note that the following line is necessary because otherwise
+        // Blazor would not recognize the state change and not refresh the UI
+        this.StateHasChanged();
+
+        }), null, 1000, 10);
+
     }
+
 }

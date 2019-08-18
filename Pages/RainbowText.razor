@@ -1,0 +1,46 @@
+﻿@page "/rainbow-text"
+
+<div class="display-4">
+    <span style="@R_Style">R</span>
+    <span style="@A_Style">A</span>
+    <span style="@I_Style">I</span>
+    <span style="@N_Style">N</span>
+    <span style="@B_Style">B</span>
+    <span style="@O_Style">O</span>
+    <span style="@W_Style">W</span>
+</div>
+<button class="btn btn-primary" @onclick="ToggleRainbow">Toggle Color</button>
+
+@code {
+    private string R_Style = "";
+    private string A_Style = "";
+    private string I_Style = "";
+    private string N_Style = "";
+    private string B_Style = "";
+    private string O_Style = "";
+    private string W_Style = "";
+
+    void ToggleRainbow()
+    {
+        if (R_Style.Length == 0)
+        {
+            R_Style = "color: red";
+            A_Style = "color: orange";
+            I_Style = "color: yellow";
+            N_Style = "color: green";
+            B_Style = "color: blue";
+            O_Style = "color: indigo";
+            W_Style = "color: violet";
+        } 
+        else
+        {
+            R_Style = "";
+            A_Style = "";
+            I_Style = "";
+            N_Style = "";
+            B_Style = "";
+            O_Style = "";
+            W_Style = "";
+        }
+    }
+}
